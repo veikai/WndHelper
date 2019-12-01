@@ -1,23 +1,9 @@
 ﻿// dllmain.cpp : 定义 DLL 应用程序的入口点。
 #include "pch.h"
+#include <string>
 
-BOOL APIENTRY DllMain(HMODULE hModule,
-	DWORD  ul_reason_for_call,
-	LPVOID lpReserved
-)
-{
-	switch (ul_reason_for_call)
-	{
-	case DLL_PROCESS_ATTACH:
-	case DLL_THREAD_ATTACH:
-	case DLL_THREAD_DETACH:
-	case DLL_PROCESS_DETACH:
-		break;
-	}
-	return TRUE;
-}
-
-extern "C" __declspec(dllexport) long GetWndLeft() {
+extern "C" __declspec(dllexport) long GetWndLeft(DWORD pId) {
+	MessageBox(NULL, std::to_wstring(pId).c_str(), NULL, 0);
 	HWND hwnd = FindWindow(L"WeChatMainWndForPC", L"微信");
 	if (!hwnd) {
 		hwnd = FindWindow(L"WeChatLoginWndForPC", L"登录");
@@ -30,7 +16,8 @@ extern "C" __declspec(dllexport) long GetWndLeft() {
 	return 0;
 }
 
-extern "C" __declspec(dllexport) long GetWndTop() {
+extern "C" __declspec(dllexport) long GetWndTop(DWORD pId) {
+	MessageBox(NULL, std::to_wstring(pId).c_str(), NULL, 0);
 	HWND hwnd = FindWindow(L"WeChatMainWndForPC", L"微信");
 	if (!hwnd) {
 		hwnd = FindWindow(L"WeChatLoginWndForPC", L"登录");
@@ -43,7 +30,8 @@ extern "C" __declspec(dllexport) long GetWndTop() {
 	return 0;
 }
 
-extern "C" __declspec(dllexport) int GetWndActiveState() {
+extern "C" __declspec(dllexport) int GetWndActiveState(DWORD pId) {
+	MessageBox(NULL, std::to_wstring(pId).c_str(), NULL, 0);
 	if (FindWindow(L"WeChatMainWndForPC", L"微信") == GetForegroundWindow()) {
 		return 1;
 	}
